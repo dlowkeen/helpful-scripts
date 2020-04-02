@@ -6,4 +6,10 @@
   - homebrew:
       name: bat
       state: latest
-      
+
+- name: Ensure git installed.
+  hosts: localhost
+  tasks:
+  - package:
+      name: git
+      state: latest
