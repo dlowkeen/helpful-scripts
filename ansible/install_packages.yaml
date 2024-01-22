@@ -1,0 +1,43 @@
+---
+- name: VPS Set Up
+  hosts: vps_groups
+  become: true
+  vars_files:
+    - group_vars/all.yml
+    - encrypted_file.yaml
+  tasks:
+    - name: Install languages - Git, Node.js, Python3, and Golang
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - git
+        - nodejs
+        - python3
+        - golang-go
+    - name: Install tools - curl, htop, zip, unzip, vim
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - curl
+        - vim
+        - htop
+        - zip
+        - unzip
+        - bat
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Install netstat (using ss)
+      apt:
+        name: net-tools
+        state: present
+
+    - name: Install openssh-client
+      apt:
+        name: openssh-client
+        state: present

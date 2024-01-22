@@ -1,0 +1,2 @@
+# Common group variables for all environments
+ansible_user: root
