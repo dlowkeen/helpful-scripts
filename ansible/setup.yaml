@@ -41,3 +41,35 @@
       apt:
         name: openssh-client
         state: present
+
+- name: Deploy Rancher Kubernetes Cluster
+  hosts: vps_groups
+  become: true
+  tasks:
+    - name: Pull Rancher Image
+      command: docker pull rancher/rancher:latest
+
+    # - name: Create Rancher Container
+    #   docker_container:
+    #     name: rancher
+    #     image: rancher/rancher:latest
+    #     ports:
+    #       - "80:80"
+    #       - "443:443"
+    #     restart_policy: always
+    #   when: "'rancher' not in ansible_facts.docker_containers | map(attribute='Names') | list"
+
+    # - name: Wait for Rancher to Start
+    #   wait_for:
+    #     timeout: 300
+    #     port: 80
+
+# - name: Install kubectl and Helm
+#   hosts: vps_groups
+#   become: true
+#   tasks:
+#     - name: Install kubectl
+#       command: "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && mv kubectl /usr/local/bin/"
+
+#     - name: Install Helm
+#       shell: "curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash"
